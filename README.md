@@ -36,6 +36,14 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ## Quiz configuration
 
+### Config
+
+In `config/index.js`, you can define the maximum time of play (in seconds) and the default score of the user.
+```js
+time: 60,
+score: 0
+```
+
 ### Questions
 
 In `data/index.js`, you can edit the quiz questions.
@@ -72,7 +80,7 @@ answers: [
 ]
 ```
 
-|  property | Description | Mandatory  |
+|  Property | Description | Mandatory  |
 |---|---|---|
 |  title | The title of the answer. | yes  |
 |  points |  The number of points with the answer. | yes  |
@@ -92,7 +100,7 @@ image: {
 }
 ```
 
-|  property | Description | Mandatory  |
+|  Property | Description | Mandatory  |
 |---|---|---|
 |  url | The url of the image. | yes  |
 |  round |  Set to true if you want a rounded image, false otherwise. | no  |
