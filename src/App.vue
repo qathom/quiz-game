@@ -28,9 +28,9 @@
 
     <div class="finish text-white text-center" v-show="gameState === 'finish'" :style="resultView.css && resultView.css.layout">
       <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Finish</span>
+        <span class="navbar-brand mb-0 h1" v-text="resultView.navbarTitle"></span>
         <form class="form-inline">
-          <button class="btn btn-primary my-2 my-sm-0" @click.prevent="retry">Try again</button>
+          <button class="btn btn-primary my-2 my-sm-0" @click.prevent="retry" v-text="resultView.retry"></button>
         </form>
       </nav>
 
@@ -38,7 +38,7 @@
         <h1 v-text="resultView.title.replace(':score', score)"></h1>
 
         <div class="results mt-3" v-if="userAnswers.length > 0">
-          <h3 v-text="resultView.results">Results</h3>
+          <h3 v-text="resultView.results"></h3>
 
           <div class="alert" role="alert" v-for="(answer, index) in userAnswers" :key="index" :class="answer.userAnswerId === answer.bestAnswerId ? 'alert-success' : 'alert-warning'">
             <h3>
