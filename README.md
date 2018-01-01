@@ -38,10 +38,32 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ### Config
 
-In `config/index.js`, you can define the maximum time of play (in seconds) and the default score of the user.
+In `config/index.js`, you can define the maximum time of play (in seconds), the default score of the user and perform some actions when the game starts or ends.
+
 ```js
+/**
+ * time to finish the game in seconds
+ */
 time: 60,
-score: 0
+
+/**
+ * default score when the game starts
+ */
+score: 0,
+
+/**
+ * callback event when the game starts
+ */
+onStart: () => {
+
+},
+
+/**
+ * callback event when the game finishes
+ */
+onFinish: () => {
+
+}
 ```
 
 ### Questions
