@@ -62,6 +62,7 @@
 <script>
 import question from '@/components/Question'
 import data from '@/data'
+import config from '@/config'
 import initialView from '@/data/initialView'
 import resultView from '@/data/resultView'
 import { timeToStr } from '@/utils'
@@ -81,6 +82,12 @@ export default {
   },
   methods: {
     ...mapActions(['setState', 'answerQuestion', 'reduceTime']),
+    triggerEvent (eventName, params = {}) {
+      const callback = config[eventName]
+      if (typeof callback === 'function') {
+        callback.bind(null, params)
+      }
+    },
     start () {
       if (this.timeInterval) {
         console.error('Warning! The game has already been started.')
