@@ -26,7 +26,7 @@
       <question v-for="question in questions" :key="question.id" :question=question :current=current />
     </main>
 
-    <div class="finish text-white text-center" v-show="gameState === 'finish'">
+    <div class="finish text-white text-center" v-show="gameState === 'finish'" :style="resultView.css && resultView.css.layout">
       <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Finish</span>
         <form class="form-inline">
@@ -47,8 +47,8 @@
             </h3>
 
             <ul class="list-group list-group-answers mb-3">
-              <li class="list-group-item" v-text="`Your answer: ${questions.find(question => question.id === answer.questionId).answers.find(a => a.id === answer.userAnswerId).title}`"></li>
-              <li class="list-group-item" v-text="`Good or best answer: ${questions.find(question => question.id === answer.questionId).answers.find(a => a.id === answer.bestAnswerId).title}`"></li>
+              <li class="list-group-item" v-text="`${resultView.yourAnswer}: ${questions.find(question => question.id === answer.questionId).answers.find(a => a.id === answer.userAnswerId).title}`"></li>
+              <li class="list-group-item" v-text="`${resultView.expectedAnswer}: ${questions.find(question => question.id === answer.questionId).answers.find(a => a.id === answer.bestAnswerId).title}`"></li>
             </ul>
 
             <p v-if="questions.find(question => question.id === answer.questionId).explanation" v-text="`Explanation: ${questions.find(question => question.id === answer.questionId).explanation}`"></p>
@@ -67,6 +67,7 @@ import initialView from '@/data/initialView'
 import resultView from '@/data/resultView'
 import { timeToStr } from '@/utils'
 import { mapGetters, mapActions } from 'vuex'
+import Event from '@/events'
 
 export default {
   name: 'app',
@@ -83,9 +84,11 @@ export default {
   methods: {
     ...mapActions(['setState', 'answerQuestion', 'reduceTime']),
     triggerEvent (eventName, params = {}) {
-      const callback = config[eventName]
+      const fullEventName = `on${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`
+      const callback = config[fullEventName]
+
       if (typeof callback === 'function') {
-        callback.bind(null, params)
+        callback.apply(null, params)
       }
     },
     start () {
@@ -94,11 +97,13 @@ export default {
       }
 
       this.setState('started')
+      this.triggerEvent(Event.GAME_START)
       this.inGame = true
       this.timeInterval = setInterval(this.reduceTime, 1000)
     },
     finish () {
       this.setState('finish')
+      this.triggerEvent(Event.GAME_FINISH)
       this.inGame = false
       clearInterval(this.timeInterval)
       this.timeInterval = null
