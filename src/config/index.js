@@ -21,5 +21,12 @@ export default {
    */
   onFinish: () => {
 
+  },
+
+  /**
+   * callback event when a question is answered
+   */
+  onQuestionAnswered: (data) => {
+
   }
 }
