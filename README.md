@@ -63,6 +63,18 @@ onStart: () => {
  */
 onFinish: () => {
 
+},
+
+/**
+ * callback event when a question is answered
+ */
+onQuestionAnswered: (data) => {
+  console.log('Question answered')
+  console.log(data.current) // current question id
+  console.log(data.next) // next question id
+  console.log(data.points) // points won for this question
+  console.log(data.answerId) // answer id
+  console.log(data.score) // score
 }
 ```
 
