@@ -51,7 +51,7 @@
               <li class="list-group-item" v-text="`${resultView.expectedAnswer}: ${questions.find(question => question.id === answer.questionId).answers.find(a => a.id === answer.bestAnswerId).title}`"></li>
             </ul>
 
-            <p v-if="questions.find(question => question.id === answer.questionId).explanation" v-text="`Explanation: ${questions.find(question => question.id === answer.questionId).explanation}`"></p>
+            <p v-if="questions.find(question => question.id === answer.questionId).explanation" v-text="`${resultView.explanation}: ${questions.find(question => question.id === answer.questionId).explanation}`"></p>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ export default {
       const callback = config[fullEventName]
 
       if (typeof callback === 'function') {
-        callback.apply(null, params)
+        callback.apply(this, [params])
       }
     },
     start () {
@@ -125,7 +125,11 @@ export default {
     },
     accomplishQuestion (from, to, points, answerId) {
       this.answerQuestion({ from, to, points, answerId })
+
       this.animatePoints(points)
+
+      // trigger event for the current question
+      this.triggerEvent(Event.GAME_QUESTION_ANSWERED, {current: from, next: to, points, answerId, score: this.score})
 
       if (to === '@finish') {
         this.finish()
