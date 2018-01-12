@@ -5,6 +5,7 @@ export default {
   results: 'Results',
   yourAnswer: 'Your answer',
   expectedAnswer: 'Good or best answer',
+  explanation: 'Explanation',
   css: {
     layout: {
       backgroundColor: '#111'
