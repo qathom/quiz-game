@@ -1,5 +1,14 @@
 export default {
   /**
+   * navbar icon
+   */
+  icon: { // or null
+    path: require('@/assets/logo.png'),
+    width: 48,
+    height: 48
+  },
+
+  /**
    * time to finish the game in seconds
    */
   time: 60,
