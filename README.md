@@ -41,6 +41,12 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 In `config/index.js`, you can define the maximum time of play (in seconds), the default score of the user and perform some actions when the game starts or ends.
 
 ```js
+icon: { // or null
+  path: require('@/assets/logo.png'),
+  width: 48,
+  height: 48
+},
+
 /**
  * time to finish the game in seconds
  */

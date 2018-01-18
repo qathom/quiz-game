@@ -12,7 +12,8 @@
 
     <main class="questions" v-show="gameState === 'started'">
       <nav class="navbar navbar-dark bg-dark fixed-top">
-        <span class="navbar-brand mb-0 h1">
+        <span class="navbar-brand h1 mb-0">
+          <img :src="icon.path" alt="Icon" v-if="icon" :width="icon.width" :height="icon.height">
           <span v-text="score"></span>
           <span class="score-animate-container">
             <transition-group :css="false" tag="span" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
@@ -28,7 +29,10 @@
 
     <div class="finish text-white text-center" v-show="gameState === 'finish'" :style="resultView.css && resultView.css.layout">
       <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1" v-text="resultView.navbarTitle"></span>
+        <span class="navbar-brand h1 mb-0">
+          <img :src="icon.path" alt="Icon" v-if="icon" :width="icon.width" :height="icon.height">
+          <span v-text="resultView.navbarTitle"></span>
+        </span>
         <form class="form-inline">
           <button class="btn btn-primary my-2 my-sm-0" @click.prevent="retry" v-text="resultView.retry"></button>
         </form>
@@ -78,7 +82,8 @@ export default {
       questions: data,
       timeInterval: null,
       currentPoints: [],
-      inGame: false
+      inGame: false,
+      icon: config.icon
     }
   },
   methods: {
